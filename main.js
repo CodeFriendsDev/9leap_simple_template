@@ -12,8 +12,9 @@ let GAME_SCREENSIZE_H = 320;
 
 function gameStart() {
     //ゲーム画面
-    scene = gameManager.createGameScene();
+    scene = new Scene();
     core.replaceScene(scene);
+
 
     //==========
     // ここから
@@ -52,14 +53,14 @@ function gameStart() {
     //==========
 }
 
-function getRandom(start, end) {
-    return start + Math.floor( Math.random() * (end - start + 1));
-}
+// function getRandom(start, end) {
+//     return start + Math.floor( Math.random() * (end - start + 1));
+// }
 
 
 function titleStart() {
     // タイトル画面
-    var scene = gameManager.createTitleScene();
+    var scene = new Scene();
     core.replaceScene(scene);
     scene.on(enchant.Event.TOUCH_START, function(){
         gameStart();
@@ -70,14 +71,14 @@ function titleStart() {
 //==========
 // EnchantJS
 //==========
-enchant();
-var gameManager;
 var core;
-var scene;
+enchant();
 window.onload = function(){
-    gameManager = new common.GameManager();
-    core = gameManager.createCore(GAME_SCREENSIZE_W, GAME_SCREENSIZE_H);
+    core = new Core(GAME_SCREENSIZE_W, GAME_SCREENSIZE_H);
+    core.fps = 16;
     core.preload(assets);
-    core.onload = function(){titleStart();};
+    core.onload = function(){
+        titleStart();
+    };
     core.start();
-}
+};
